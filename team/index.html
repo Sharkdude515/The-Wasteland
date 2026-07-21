@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Wasteland - Multiplayer</title>
+    <title>The Wasteland - team</title>
     <style>
         * { box-sizing: border-box; user-select: none; -webkit-user-select: none; margin: 0; padding: 0; }
         body, html { width: 100%; height: 100%; overflow: hidden; background: #111; font-family: monospace; }
@@ -73,9 +73,9 @@
 <script>
 const canvas=document.getElementById("gameCanvas"),ctx=canvas.getContext("2d");
 let gameActive=true,score=0,cameraX=0,cameraY=0;
-const gravity=0.8,blockSize=32,airBlocksCount=15,groundBlocksCount=100,totalWorldHeightBlocks=airBlocksCount+groundBlocksCount;
-const player={x:100,y:100,width:24,height:24,vx:0,vy:0,speed:8,jumpForce:11,grounded:false,health:100,direction:1,color:"#00ffcc"};
-let inventory={scrap:5,door:1,hatch:1,ladder:2,scaffold:4};
+const gravity=0.8,blockSize=32,airBlocksCount=100,groundBlocksCount=100,totalWorldHeightBlocks=airBlocksCount+groundBlocksCount;
+const player={x:100,y:100,width:24,height:24,vx:0,vy:0,speed:8,jumpForce:12,grounded:false,health:100,direction:1,color:"#00ffcc"};
+let inventory={scrap:5,door:1,hatch:1,ladder:10,scaffold:4};
 let currentQuest={type:"KILL",target:3,progress:0,desc:"Eliminate 3 mutants"};
 let keys={},bullets=[],enemies=[],npcs=[],netPlayers=[],particles=[],worldBlocks={},worldItems={},currentMode="BUILD",selectedSubItem="door";
 let isMobile=false,joystickActive=false,joystickStart={x:0,y:0},maxJoystickDist=40,mobileJumpPressed=false;
@@ -121,7 +121,7 @@ function generateBackgroundCity(){
     backgroundBuildings.length=0;
     for(let i=0;i<60;i++){
         backgroundBuildings.push({
-            x:i*70-200,width:45+Math.random()*40,height:200+Math.random()*250,
+            x:i*70-200,width:45+Math.random()*40,height:5333+Math.random()*250,
             color:`rgba(${30+Math.random()*15},${22+Math.random()*10},15,0.45)`,windows:Array.from({length:12},()=>Math.random()>0.6)
         });
     }
@@ -175,7 +175,7 @@ function setupMobileEvents(){
     document.getElementById('btn-shoot').addEventListener('touchstart',e=>{e.preventDefault();shootBullet(player.x,player.y,player.width,player.height,player.direction);});
 }
 function shootBullet(x,y,w,h,d){if(gameActive)bullets.push({x:x+(d===1?w:0),y:y+h/2-3,vx:d*12,width:10,height:4});}
-function spawnEnemy(){if(enemies.length<5&&Math.random()<0.015)enemies.push({x:player.x+canvas.width/2+Math.random()*200,y:(airBlocksCount-2)*blockSize,width:26,height:40,vx:0,vy:0,speed:3.2+Math.random()*1.5,health:2,color:"#6acc22"});}
+function spawnEnemy(){if(enemies.length<15&&Math.random()<0.015)enemies.push({x:player.x+canvas.width/2+Math.random()*200,y:(airBlocksCount-2)*blockSize,width:26,height:40,vx:0,vy:0,speed:3.2+Math.random()*1.5,health:2,color:"#7D3C00"});}
 function checkCollision(x,y,width,height){
     const sx=Math.floor(x/blockSize),ex=Math.floor((x+width)/blockSize),sy=Math.floor(y/blockSize),ey=Math.floor((y+height)/blockSize);let c=false;
     for(let gx=sx;gx<=ex;gx++){
@@ -227,7 +227,7 @@ function update(){
         en.y+=en.vy;let eV=checkCollision(en.x,en.y,en.width,en.height);if(eV.hit){en.y=en.vy > 0?eV.top-en.height-0.1:eV.bottom+0.1;en.vy=0;}
         if(en.x<player.x+player.width&&en.x+en.width>player.x&&en.y<player.y+player.height&&en.y+en.height>player.y){player.health-=1;document.getElementById("hp").innerText=Math.max(0,player.health);createSparks(player.x+player.width/2,player.y+player.height/2,"#ff3333");if(player.health <= 0){gameActive=false;document.getElementById("gameOverScreen").style.display="block";}}
         for(let b=bullets.length-1;b >= 0;b--){
-            let bu=bullets[b];if(bu.x<en.x+en.width&&bu.x+bu.width>en.x&&bu.y<en.y+en.height&&bu.y+bu.height>en.y){bullets.splice(b,1);en.health-=1;createSparks(en.x+en.width/2,en.y+en.height/2,"#77ff33");if(en.health<=0){enemies.splice(e,1);score+=100;inventory.scrap+=1;checkQuestProgress("KILL","mutant");updateUI();break;} }
+            let bu=bullets[b];if(bu.x<en.x+en.width&&bu.x+bu.width>en.x&&bu.y<en.y+en.height&&bu.y+bu.height>en.y){bullets.splice(b,1);en.health-=1;createSparks(en.x+en.width/2,en.y+en.height/2,"#7D3C00");if(en.health<=0){enemies.splice(e,1);score+=100;inventory.scrap+=1;checkQuestProgress("KILL","mutant");updateUI();break;} }
         }
     }
     for(let p=particles.length-1;p >= 0;p--){particles[p].x+=particles[p].vx;particles[p].y+=particles[p].vy;particles[p].life--;if(particles[p].life<=0)particles.splice(p,1);}
