@@ -103,9 +103,9 @@
             <div class="subtitle">SURVIVAL SELECTION</div>
         </div>
      
-        <a href="solo/index.html" class="nav-btn">Solo</a>
-        <a href="team/index.html" class="nav-btn">Team</a>
-		  <a href="moon/index.html" class="nav-btn">Moon</a>
+        <a href="solo.html" class="nav-btn">Solo</a>
+        <a href="team.html" class="nav-btn">Team</a>
+		  <a href="moon.html" class="nav-btn">Moon</a>
     </div>
 </div>
 
@@ -143,7 +143,7 @@ function generateBackgroundCity() {
 }
 
 function updateAndSpawnParticles() {
-    // Generate gentle radioactive background sparks floating upwards
+    // Generate gentle sparks floating upwards
     if (particles.length < 40 && Math.random() < 0.1) {
         particles.push({
             x: Math.random() * canvas.width,
