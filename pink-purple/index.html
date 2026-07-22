@@ -6,7 +6,7 @@
 			name="viewport"
 			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 		/>
-		<title>The Wasteland - Pink-Purple</title>
+		<title>The Wasteland - Team</title>
 		<style>
 			* { box-sizing: border-box; user-select: none; -webkit-user-select: none; margin: 0; padding: 0; }
 			body, html { width: 100%; height: 100%; overflow: hidden; background: #111; font-family: monospace; }
@@ -456,7 +456,7 @@
 			    // 4. Attach the dynamic spawning click action (Spawns right next to player)
 			    spawnBtn.onclick = function() {
 			        if (typeof gameActive !== 'undefined' && !gameActive) return;
-			        const names = ["Tim", "Sam", "Bob", "Max", "Leo", "Kevin", "Ben", "Dan"];
+			        const names = ["Tim", "Sam", "Bob", "Max", "Leo", "Kevin", "Ben", "Ken"];
 			        const randomName = names[Math.floor(Math.random() * names.length)] + "_" + Math.floor(Math.random() * 90 + 10);
 			        const randomColor = `hsl(${Math.random() * 360}, 90%, 50%)`;
 
@@ -485,7 +485,7 @@
 			        window.updateUI = function() {
 			            originalUpdateUI();
 			            if (typeof score !== 'undefined') {
-			                document.getElementById("spawnTeamBtn").style.display = (score >= 2000) ? "block" : "none";
+			                document.getElementById("spawnTeamBtn").style.display = (score >= 5000) ? "block" : "none";
 			            }
 			        };
 			    } else {
