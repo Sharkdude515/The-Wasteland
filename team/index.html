@@ -349,8 +349,89 @@ function forceGenerateStructures() {
     console.log("Ruined houses injected!");
 }
 
-// Waits half a second for your main engine loop to finish loading the map
+// Waits half a second for the main engine loop to finish loading the map
 setTimeout(forceGenerateStructures, 500);
+ // --- AUTO-INJECT SPAWN TEAM MODULE ---
+(function() {
+    // 1. Create and inject CSS Styles for the button
+    const style = document.createElement('style');
+    style.textContent = `
+        #spawnTeamBtn { 
+            background: rgba(0, 150, 255, 0.2); 
+            border-color: #0096ff; 
+            color: #0096ff; 
+            display: none; 
+        }
+    `;
+    document.head.appendChild(style);
+
+    // 2. Create the physical Button element
+    const spawnBtn = document.createElement('button');
+    spawnBtn.id = "spawnTeamBtn";
+    spawnBtn.className = "action-btn";
+    spawnBtn.innerText = "SPAWN TEAM";
+    
+    // 3. Insert the button next to the build Mode Button
+    const modeBtn = document.getElementById("modeBtn");
+    if (modeBtn && modeBtn.parentNode) {
+        modeBtn.parentNode.insertBefore(spawnBtn, modeBtn.nextSibling);
+    }
+
+    // 4. Attach the dynamic spawning click action (Spawns right next to player)
+    spawnBtn.onclick = function() {
+        if (typeof gameActive !== 'undefined' && !gameActive) return;
+        const names = ["Tim", "Sam", "Bob", "Max", "Leo", "Kevin", "Ben", "Dan"];
+        const randomName = names[Math.floor(Math.random() * names.length)] + "_" + Math.floor(Math.random() * 90 + 10);
+        const randomColor = `hsl(${Math.random() * 360}, 90%, 50%)`;
+        
+        if (typeof netPlayers !== 'undefined') {
+            netPlayers.push({
+                name: randomName, 
+                x: player.x + (Math.random() * 80 - 40), // Offsets slightly left/right of you
+                y: player.y,                             // Spawns exactly at your height level
+                width: 24, 
+                height: 24, 
+                vx: 0, 
+                vy: 0, 
+                dir: Math.random() > 0.5 ? 1 : -1, 
+                timer: 0, 
+                color: randomColor
+            });
+            if (typeof createSparks === 'function') {
+                createSparks(player.x, player.y, randomColor);
+            }
+        }
+    };
+
+    // 5. Intercept your updateUI loop to show/hide the button dynamically
+    if (typeof window.updateUI === 'function') {
+        const originalUpdateUI = window.updateUI;
+        window.updateUI = function() {
+            originalUpdateUI();
+            if (typeof score !== 'undefined') {
+                document.getElementById("spawnTeamBtn").style.display = (score >= 2000) ? "block" : "none";
+            }
+        };
+    } else {
+        // Fallback safety if window.updateUI isn't a global window function yet
+        setInterval(() => {
+            const el = document.getElementById("spawnTeamBtn");
+            if (el && typeof score !== 'undefined') {
+                el.style.display = (score >= 2000) ? "block" : "none";
+            }
+        }, 100);
+    }
+
+    // 6. Intercept your resetGame loop to clean up the button on death
+    if (typeof window.resetGame === 'function') {
+        const originalResetGame = window.resetGame;
+        window.resetGame = function() {
+            originalResetGame();
+            document.getElementById("spawnTeamBtn").style.display = "none";
+        };
+    }
+})();
+
 </script>
 </body>
 </html>
