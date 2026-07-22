@@ -409,7 +409,7 @@ setTimeout(forceGenerateStructures, 500);
         window.updateUI = function() {
             originalUpdateUI();
             if (typeof score !== 'undefined') {
-                document.getElementById("spawnTeamBtn").style.display = (score >= 2000) ? "block" : "none";
+                document.getElementById("spawnTeamBtn").style.display = (score >= 5000) ? "block" : "none";
             }
         };
     } else {
