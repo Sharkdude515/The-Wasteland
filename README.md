@@ -1,4 +1,4 @@
- The Wasteland
+ # The Wasteland
 The Wasteland is a 2D sandbox-block game made and developed by one programmer. It is set in a post nuclear apocalyptic world.
 
 It has multiple different versions as shown below and more! And it’s all free!
