@@ -12,4 +12,4 @@ I think many will probably find it a little suspicious that it is a completely f
 Another thing I am fairly proud of is that you can save your game too! The bigger versions of the game have 3 save slots and if you save the game before you die you can just press the load button and respawn at your last save. Once your score reaches a certain point you will also have the chance to spawn more NPC teammates in the team version (not multiplayer, but team).
 
 <img width="710" height="710" alt="image" src="https://github.com/user-attachments/assets/55e86b25-5b7c-40c6-b963-e143b74a7467" />
-
+As of right now the game has a passcode which is changed regularly and it is: 182838
