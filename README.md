@@ -4,3 +4,5 @@ The Wasteland is a 2D sandbox-block game made and developed by one programmer. I
 It has multiple different versions as shown below and more! And it’s all free!
 
 <img width="1320" height="1320" alt="image" src="https://github.com/user-attachments/assets/f724285f-9e2a-46fb-82d9-815e61a67ec7" />
+
+The game also has a crafting system, a day-night cycle and it is compatible with both mobile and desktop! Sadly the multiplayer version is still in its beta stage and is not available on mobile and may not function as well as the other versions. Find the game here for free with no downloads or ads! https://sharkdude515.github.io/The-Wasteland/
