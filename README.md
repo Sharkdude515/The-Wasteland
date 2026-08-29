@@ -14,4 +14,4 @@ Another thing I am fairly proud of is that you can save your game too! The bigge
 <img width="710" height="710" alt="image" src="https://github.com/user-attachments/assets/55e86b25-5b7c-40c6-b963-e143b74a7467" />
 As of right now the game has a passcode which is changed regularly and it is: 182838
 
-I will be adding a play manual with the full features of the game and some advice soon!
+I will add a play manual soon with the full features of the game and some advice soon!
